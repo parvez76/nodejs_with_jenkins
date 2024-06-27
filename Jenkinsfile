@@ -7,9 +7,20 @@ pipeline {
       }
     }
 
-    stage('') {
-      steps {
-        sh 'ls -la'
+    stage('shell') {
+      parallel {
+        stage('shell') {
+          steps {
+            sh 'ls -la'
+          }
+        }
+
+        stage('unit test') {
+          steps {
+            sh 'cd nodeapp/node-1 && npm i runt test:unit'
+          }
+        }
+
       }
     }
 
